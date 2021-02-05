@@ -12,6 +12,8 @@ const Database = require("./database");
       "-s, --search [value]",
       "This command search a specific list. Enter ID at param if not enter, return all database."
     )
+    .option( "-p, --people [value]", "This command register the people in list specific")
+    .option( "-id, --list-id [value]", "This command register the people in list specific")
     .parse(process.argv);
 
   const options = commander.opts();
@@ -35,6 +37,22 @@ const Database = require("./database");
         const search = await Database.list(options.search);
         console.log("THIS IS THE SEARCH RESULT >>>", search);
         return;
+    }
+
+    /**
+     * node index.js -p <PEOPLE_LIST> -id <LIST_ID>
+     * node index.js -p ['igor@email.com', 'stone@email.com'] -id 1
+     */
+    if (options.people) {
+      if (!options.listId) {
+        console.log("FOR ADD A USER, YOU SHOULD INFORM THE LIST ID")
+        return;
+      }
+
+      console.log('User list >>>', options.people);
+      console.log('List ID >>>', options.listId);
+      console.log('options >>>', options);
+      return;
     }
   } catch (error) {
     console.error("Database falure >>>", error);

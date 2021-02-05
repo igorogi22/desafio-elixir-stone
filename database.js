@@ -73,6 +73,24 @@ class Database {
     await this.writeFile(data);
     return true;
   }
+
+  async registerPeople(id, peoples){
+    const data = await this.getFile();
+    const indice = data.findIndex((item) => item.id === parseInt(id));
+    if (indice === -1) {
+      throw Error("THIS LIST DOES NOT EXIST");
+    }
+
+    const list = data[indice];
+    const listWithPeoples = {...list, peoples: peoples};
+    return listWithPeoples;
+
+    // //workaround para remover valores undefined do objeto
+    // const objUpdate = JSON.parse(JSON.stringify(peoples));
+    // const objUpdated = Object.assign({}, atual, objUpdate);
+
+    // return await this.writeFile([...data, objUpdated]);
+  }
 }
 
 module.exports = new Database();
