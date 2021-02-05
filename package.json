@@ -1,0 +1,15 @@
+{
+  "name": "desafio-elixir-stone",
+  "version": "1.0.0",
+  "description": "This is a project for a technical challenge for a job at Stone",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["stone", "challnge", "desafio"],
+  "author": "Igor Vinicius, GitHub: @igorogi22",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^7.0.0"
+  }
+}
