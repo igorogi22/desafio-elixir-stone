@@ -49,7 +49,7 @@ class Database {
     const atual = data[indice];
     data.splice(indice, 1);
 
-    //workaround para remover valores undefined do objeto
+    //workaround to remove undefined values of object
     const objUpdate = JSON.parse(JSON.stringify(updates));
     const objUpdated = Object.assign({}, atual, objUpdate);
 
