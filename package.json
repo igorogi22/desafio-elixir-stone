@@ -4,9 +4,13 @@
   "description": "This is a project for a technical challenge for a job at Stone",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js --help"
   },
-  "keywords": ["stone", "challnge", "desafio"],
+  "keywords": [
+    "stone",
+    "challnge",
+    "desafio"
+  ],
   "author": "Igor Vinicius, GitHub: @igorogi22",
   "license": "ISC",
   "dependencies": {
