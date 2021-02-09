@@ -1,1 +1,1 @@
-[{"id":1},{"id":2,"list_name":"testes1"}]
+[{"id":"jzznf","list_name":"teste","peoples":[],"items":[]},{"id":2,"list_name":"teste2","peoples":["igor","teste2"],"items":[{"name":"apple","value":1,"amount":5.5},{"name":"avocado","value":4,"amount":12},{"name":"avocado","value":4,"amount":12},{"name":"avocado","value":4,"amount":12}]}]

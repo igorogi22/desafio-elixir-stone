@@ -28,6 +28,8 @@ class Database {
     const listWithId = {
       id,
       ...list,
+      peoples: [],
+      items: []
     };
 
     await this.writeFile([...data, listWithId]);
@@ -39,41 +41,6 @@ class Database {
     return data.filter((item) => (id ? item.id == id : true));
   }
 
-  async update(id, updates) {
-    const data = await this.getFile();
-    const indice = data.findIndex((item) => item.id === parseInt(id));
-    if (indice === -1) {
-      throw Error("THIS LIST DOES NOT EXIST");
-    }
-
-    const atual = data[indice];
-    data.splice(indice, 1);
-
-    //workaround to remove undefined values of object
-    const objUpdate = JSON.parse(JSON.stringify(updates));
-    const objUpdated = Object.assign({}, atual, objUpdate);
-
-    return await this.writeFile([...data, objUpdated]);
-  }
-
-  async delete(id) {
-    if (!id) {
-      await this.writeFile([]);
-      return true;
-    }
-
-    const data = await this.getFile();
-
-    const indice = data.findIndex((item) => item.id === parseInt(id));
-    if (indice === -1) {
-      throw Error("THIS LIST DOES NOT EXIST");
-    }
-
-    data.splice(indice, 1);
-    await this.writeFile(data);
-    return true;
-  }
-
   async registerPeople(id, peoples){
     const data = await this.getFile();
     const indice = data.findIndex((item) => item.id === parseInt(id));
@@ -82,14 +49,36 @@ class Database {
     }
 
     const list = data[indice];
-    const listWithPeoples = {...list, peoples: peoples};
-    return listWithPeoples;
+    data.splice(indice, 1);
 
-    // //workaround para remover valores undefined do objeto
-    // const objUpdate = JSON.parse(JSON.stringify(peoples));
-    // const objUpdated = Object.assign({}, atual, objUpdate);
+    const newPeoples = JSON.parse(JSON.stringify(peoples));
+    let listWithPeoples = [...list.peoples];
 
-    // return await this.writeFile([...data, objUpdated]);
+    for(let i = 0; i < newPeoples.length; i++){
+      listWithPeoples.push(newPeoples[i]);
+    }
+
+    const objUpdated = {...list, peoples: listWithPeoples}
+
+    return await this.writeFile([...data, objUpdated]);
+  }
+
+  async registerItem(id, itemRegister){
+    const data = await this.getFile();
+    const indice = data.findIndex((item) => item.id === parseInt(id));
+    if (indice === -1) {
+      throw Error("THIS LIST DOES NOT EXIST");
+    }
+
+    const list = data[indice];
+    data.splice(indice, 1);
+    
+    const newItem = JSON.parse(JSON.stringify(itemRegister));
+    const listWithItems = [...list.items, newItem];
+
+    const objUpdated = {...list, items: listWithItems}
+
+    return await this.writeFile([...data, objUpdated]);
   }
 }
 
